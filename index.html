@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layout Ágil</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main>
+    <section class="perfil">
+      <img width="300" height="200"
+        src="assets/FOTO USUARIO.png"
+        alt="Imagem de Perfil" class="imagem-perfil" />
+      <h1 class="nome-perfil">Nome do Usuário</h1>
+      <p class="descricao-perfil">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, esse. Est sequi
+        omnis, placeat expedita, laudantium
+        deserunt tempora magnam iure hic eius blanditiis soluta consequatur debitis quas libero inventore laboriosam?
+      </p>
+      <ul class="lista-links">
+        <li><a href="#">Link1</a></li>
+        <li><a href="#">Link2</a></li>
+        <li><a href="#">Link3</a></li>
+        <li><a href="#">Link4</a></li>
+      </ul>
+    </section>
+
+    <section class="tarefa">
+      <div class="title-inputs">
+        <h2 class="titulo-tarefas">Lista de Tarefas</h2>
+      </div>
+      <div class="container-lista-tarefas">
+        <div class="lista-dia">
+          <h3 class="lista-titulo-turno">Dia</h3>
+          <ul class="lista-tarefa" id="dia-lista">
+          </ul>
+        </div>
+        <div class="lista-noite">
+          <h3 class="lista-titulo-turno">Noite</h3>
+          <ul class="lista-tarefa" id="noite-lista">
+          </ul>
+        </div>
+      </div>
+      <div class="inputs">
+        <input type="text" id="tarefa-input" placeholder="Adicionar tarefa" style="height: 30px;" />
+        <select id="turno-select" style="height: 34px;" aria-placeholder="turno">
+          <option value="">Turno</option>
+          <option value="dia">Dia</option>
+          <option value="noite">Noite</option>
+        </select>
+        <input type="submit" id="enviar-btn" title="Enviar" style="height: 34px; cursor: pointer;" />
+      </div>
+    </section>
+  </main>
+  <script>
+    document.getElementById('enviar-btn').addEventListener('click', function () {
+      const tarefaInput = document.getElementById('tarefa-input');
+      const turnoSelect = document.getElementById('turno-select');
+      const tarefaTexto = tarefaInput.value.trim();
+      const turno = turnoSelect.value;
+
+      if (tarefaTexto && turno) {
+        const lista = turno === 'dia' ? document.getElementById('dia-lista') : document.getElementById('noite-lista');
+        const novaTarefa = document.createElement('li');
+
+        const textoTarefa = document.createTextNode(tarefaTexto + ' ');
+        const botaoRemover = document.createElement('button');
+        botaoRemover.textContent = 'X';
+        botaoRemover.style.marginLeft = '10px';
+        botaoRemover.style.width = '20px';
+        botaoRemover.style.cursor = 'pointer';
+
+        botaoRemover.addEventListener('click', function () {
+          lista.removeChild(novaTarefa);
+        });
+
+        novaTarefa.appendChild(textoTarefa);
+        novaTarefa.appendChild(botaoRemover);
+        lista.appendChild(novaTarefa);
+
+        tarefaInput.value = '';
+        turnoSelect.value = '';
+      } else {
+        alert('Por favor, preencha a tarefa e selecione o turno.');
+      }
+    });
+  </script>
+</body>
+
+</html>
